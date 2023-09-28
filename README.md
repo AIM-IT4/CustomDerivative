@@ -28,5 +28,5 @@ This project is licensed under the MIT License.
 
 ## Authors
 
-- **Amit Kumar Jha** - *Initial work* - [YourGitHubUsername](https://github.com/YourGitHubUsername)
+- **Amit Kumar Jha** - *Initial work* - [AIM-IT4](https://github.com/AIM-IT4)
 
