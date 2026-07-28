@@ -1,6 +1,7 @@
 name: Release v0.2.0
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
@@ -8,6 +9,10 @@ on:
 
 permissions:
   contents: write
+
+concurrency:
+  group: release-v0.2.0
+  cancel-in-progress: false
 
 jobs:
   validate-and-release:
@@ -43,7 +48,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create v0.2.0 \
-            --target "$GITHUB_SHA" \
-            --title "CustomDerivative v0.2.0 — Advanced Pricing and Risk Engine" \
-            --notes-file NEWS.md
+          if gh release view v0.2.0 >/dev/null 2>&1; then
+            echo 'Release v0.2.0 already exists; nothing to do.'
+          else
+            gh release create v0.2.0 \
+              --target "$GITHUB_SHA" \
+              --title "CustomDerivative v0.2.0 - Advanced Pricing and Risk Engine" \
+              --notes-file NEWS.md
+          fi
