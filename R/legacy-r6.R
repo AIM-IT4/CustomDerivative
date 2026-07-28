@@ -3,8 +3,9 @@
 #' Backward-compatible wrapper for users of versions 0.1.x. New code should
 #' generally use [price_european_mc()] and the payoff helper functions directly.
 #'
+#' @importFrom R6 R6Class
 #' @export
-CustomDerivative <- R6::R6Class(
+CustomDerivative <- R6Class(
   "CustomDerivative",
   public = list(
     underlying_price = NULL,
