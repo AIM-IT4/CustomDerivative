@@ -1,0 +1,63 @@
+name: CRAN source build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [agent/cran-0.2.0]
+  pull_request:
+    paths:
+      - 'DESCRIPTION'
+      - 'NAMESPACE'
+      - 'R/**'
+      - 'tests/**'
+      - 'cran-comments.md'
+      - '.github/workflows/cran-build.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-check:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'devel'
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::rcmdcheck
+            any::roxygen2
+          needs: check
+
+      - name: Generate documentation
+        shell: Rscript {0}
+        run: roxygen2::roxygenise()
+
+      - name: Build source package
+        shell: bash
+        run: R CMD build .
+
+      - name: Check source package as CRAN
+        shell: bash
+        run: |
+          TARBALL=$(ls -1t CustomDerivative_*.tar.gz | head -n 1)
+          R CMD check --as-cran --no-manual "$TARBALL"
+
+      - name: Upload CRAN tarball and check results
+        uses: actions/upload-artifact@v4
+        with:
+          name: CustomDerivative-CRAN-submission
+          path: |
+            CustomDerivative_*.tar.gz
+            CustomDerivative.Rcheck/**
+            cran-comments.md
+          if-no-files-found: error
