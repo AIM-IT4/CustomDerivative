@@ -7,12 +7,13 @@ Authors@R: c(
            email = "jha.8@iitj.ac.in")
     )
 Description: Tools for pricing and analysing financial derivatives under
-    Black-Scholes and geometric Brownian motion assumptions. The package
-    provides analytical European option prices, Monte Carlo pricing with
-    antithetic and control variates, confidence intervals, finite-difference
-    Greeks, and path simulation for path-dependent payoffs. The simulation
-    interfaces accept user-defined payoff functions, enabling transparent
-    construction of custom contracts while reporting numerical uncertainty.
+    the classical lognormal diffusion model and geometric Brownian motion
+    assumptions. The package provides analytical European option prices,
+    Monte Carlo pricing with antithetic and control variates, confidence
+    intervals, finite-difference Greeks, and path simulation for
+    path-dependent payoffs. The simulation interfaces accept user-defined
+    payoff functions, enabling transparent construction of custom contracts
+    while reporting numerical uncertainty.
 License: MIT + file LICENSE
 URL: https://github.com/AIM-IT4/CustomDerivative
 BugReports: https://github.com/AIM-IT4/CustomDerivative/issues
