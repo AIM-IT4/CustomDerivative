@@ -1,11 +1,28 @@
 Package: CustomDerivative
 Type: Package
-Title: Pricing Various Types of Custom Derivatives
-Version: 0.1.0
-Authors@R: c(person("Amit Kumar", "Jha", role = c("aut", "cre", "cph"), email = "jha.8@iitj.ac.in"))
-Description: A versatile R package for creating and pricing custom derivatives to suit your financial needs.
+Title: Extensible Derivative Pricing and Risk Analytics
+Version: 0.2.0
+Authors@R: c(
+    person("Amit Kumar", "Jha", role = c("aut", "cre", "cph"),
+           email = "jha.8@iitj.ac.in")
+    )
+Description: Tools for pricing and analysing financial derivatives under
+    Black-Scholes and geometric Brownian motion assumptions. The package
+    provides analytical European option prices, Monte Carlo pricing with
+    antithetic and control variates, confidence intervals, finite-difference
+    Greeks, and path simulation for path-dependent payoffs. The simulation
+    interfaces accept user-defined payoff functions, enabling transparent
+    construction of custom contracts while reporting numerical uncertainty.
 License: MIT + file LICENSE
+URL: https://github.com/AIM-IT4/CustomDerivative
+BugReports: https://github.com/AIM-IT4/CustomDerivative/issues
 Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Depends:
+    R (>= 4.1.0)
 Imports:
-    R6
-RoxygenNote: 7.2.3
+    stats
+Suggests:
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
