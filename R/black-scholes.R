@@ -52,6 +52,7 @@ black_scholes_price <- function(spot, strike, maturity, rate, volatility,
 #' Standard terminal payoff functions
 #'
 #' @param strike Strike price.
+#' @param cash Cash amount paid by the digital call when in the money.
 #' @return A vectorized payoff function accepting terminal prices.
 #' @name payoff_helpers
 NULL
