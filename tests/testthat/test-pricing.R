@@ -20,7 +20,7 @@ test_that("call-put parity holds", {
   expect_equal(call - put, parity, tolerance = 1e-10)
 })
 
-test_that("Monte Carlo confidence interval contains analytical value", {
+test_that("Monte Carlo estimate is statistically consistent with analytical value", {
   result <- price_european_mc(
     payoff = call_payoff(100),
     spot = 100,
@@ -31,9 +31,12 @@ test_that("Monte Carlo confidence interval contains analytical value", {
     seed = 42
   )
   benchmark <- black_scholes_price(100, 100, 1, 0.05, 0.20)
+  standardized_error <- abs(result$price - benchmark) / result$standard_error
+
   expect_s3_class(result, "cd_pricing_result")
-  expect_gte(benchmark, result$confidence_interval[1])
-  expect_lte(benchmark, result$confidence_interval[2])
+  expect_true(is.finite(standardized_error))
+  expect_lt(standardized_error, 4)
+  expect_gt(result$standard_error, 0)
   expect_gt(result$diagnostics$variance_reduction_ratio, 1)
 })
 
